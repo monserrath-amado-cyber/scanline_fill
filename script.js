@@ -74,3 +74,36 @@ class ScanlineFill {
         }
     }
 }
+// --- CONFIGURACIÓN Y USO ---
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+const scanline = new ScanlineFill(ctx);
+
+// Definimos un polígono interesante (forma de rayo/estrella cóncava)
+const myPolygon = [
+    { x: 300, y: 50 },
+    { x: 350, y: 200 },
+    { x: 500, y: 200 },
+    { x: 380, y: 300 },
+    { x: 420, y: 430 },
+    { x: 300, y: 350 },
+    { x: 180, y: 430 },
+    { x: 220, y: 300 },
+    { x: 100, y: 200 },
+    { x: 250, y: 200 }
+];
+
+// Dibujar el contorno para referencia
+ctx.beginPath();
+ctx.moveTo(myPolygon[0].x, myPolygon[0].y);
+for (let i = 1; i < myPolygon.length; i++) {
+    ctx.lineTo(myPolygon[i].x, myPolygon[i].y);
+}
+ctx.closePath();
+ctx.strokeStyle = "#e74c3c";
+ctx.lineWidth = 3;
+ctx.stroke();
+
+// Aplicar el algoritmo de relleno
+scanline.fill(myPolygon, "#3498db");
